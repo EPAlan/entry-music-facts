@@ -1,9 +1,27 @@
-{% if user_list %}
-    <ul>
-    {% for user in user_list %}
-        <li><a href="/{{ user.id }}/">{{ user.username }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No users are available.</p>
-{% endif %}
+{% load staticfiles %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+<div class="main">
+    <h1 class="heading">Welcome to Kanjoya</h1>
+    <a href="#" id="visitor" class="button">Visitor</a>
+    <a href="#" id="kanjoyan" class="button">Kanjoyan</a>
+
+    <script type="text/javascript">
+        $('kanjoyan').on('click', function() {
+	    this.up('.main').down('.kanjoyan-list').setStyle({ 'display' : 'block' });
+        });
+    </script>
+    <div class="kanjoyan-list">
+        {% if user_list %}
+            <ul>
+            {% for user in user_list %}
+                <li><a href="/welcome/{{ user.id }}/"><img src="{{ user.image }}" width="250" height="250" /></a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No users are available.</p>
+        {% endif %}
+
+    </div>
+</div>
