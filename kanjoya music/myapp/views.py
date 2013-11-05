@@ -12,15 +12,34 @@ def current_datetime(request):
     return HttpResponse(html)
 
 def addFact(request):
-    danni = Kanjoyan.objects.get(id=1 )
+    user_id = 1;
+    danni = Kanjoyan.objects.get(id=user_id)
 
     danniFacts = UserFact.objects.filter(kanjoyan=danni)   
     
     
-    data = {'myFacts' : danniFacts, 'username' : danni }
+    data = {'myFacts' : danniFacts, 'username' : danni, 'userId' : user_id }
     rendered = render_to_string('addFact.html', {'data': data})
-    
-    return HttpResponse(rendered)
+    final = "<div>" + rendered + "</div>";
+    return HttpResponse(final)
+
+def ajaxAddFact(request):
+    crap = request.POST
+    userId = crap['user_id']
+    fact = crap['new_fact']
+    currentUser = Kanjoyan.objects.get(id=userId)
+
+    try :
+        existingFact = Fact.objects.get(text=fact)
+        newUserFact = UserFact(fact=fact, kanjoyan=currentUser)
+        newUserFact.save()
+    except Exception:
+        newFact = Fact(text=fact)
+        newFact.save()
+        newUserFact = UserFact(fact=newFact, kanjoyan=currentUser)
+        newUserFact.save()
+
+    return HttpResponse(newUserFact)
 
 def showTrivia(request):
     return HttpResponse('showTrivia')
