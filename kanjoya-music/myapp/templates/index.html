@@ -1,7 +1,12 @@
 {% load staticfiles %}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Welcome to Kanjoya</title>
+    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+</head>
+<body>
 <div class="main">
     <h1 class="heading">Welcome to Kanjoya</h1>
     <a href="#" id="visitor" class="button">Visitor</a>
@@ -16,7 +21,7 @@
         {% if user_list %}
             <ul>
             {% for user in user_list %}
-                <li><a href="/welcome/{{ user.id }}/"><img src="{{ user.image }}" width="250" height="250" /></a></li>
+                <li><a href="/welcome/{{ user.id }}/" title="{{ user.username }}"><img src="{{ user.image }}" width="250" height="250" alt="{{ user.username }}" /></a></li>
             {% endfor %}
             </ul>
         {% else %}
