@@ -12,10 +12,10 @@ class Kanjoyan(models.Model):
     lastname= models.CharField(max_length=50)
     username = models.CharField(max_length=50)
     def __unicode__(self):
-        return str(self.id) + ' : ' + self.username
+        return self.username
 
 class UserFact(models.Model):
     kanjoyan = models.ForeignKey(Kanjoyan)
     fact = models.ForeignKey(Fact)
     def __unicode__(self):
-        return self.user.username + ' : ' + self.fact.text
+        return self.kanjoyan.username + ' : ' + self.fact.text

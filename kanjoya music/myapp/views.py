@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from myapp import models
+from myapp.models import *
+import myapp
 
 import datetime
 
@@ -9,7 +12,14 @@ def current_datetime(request):
     return HttpResponse(html)
 
 def addFact(request):
-    rendered = render_to_string('addFact.html', {'data': 'data'})
+    danni = Kanjoyan.objects.get(id=1 )
+
+    danniFacts = UserFact.objects.filter(kanjoyan=danni)   
+    
+    
+    data = {'myFacts' : danniFacts, 'username' : danni }
+    rendered = render_to_string('addFact.html', {'data': data})
+    
     return HttpResponse(rendered)
 
 def showTrivia(request):
