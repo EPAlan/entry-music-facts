@@ -37,7 +37,28 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .kanjoyan-list ul li:nth-child(5n) a { -webkit-transform: rotate(5deg); -moz-transform: rotate(5deg); position: relative; right: 5px; }
 .kanjoyan-list ul li:nth-child(8n) a { position: relative; top: 8px; right: 5px; }
 .kanjoyan-list ul li:nth-child(11n) a { position: relative; top: 3px; left: -5px; }
+
 .single-kanjoyan { width: 300px; margin: 0 auto; padding-top: 15px; }
+
+.single-kanjoyan img { 
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    display: inline;
+    font-family: "Marker Felt",sans-serif;
+    font-size: 18px;
+    margin: 0 0 27px 30px;
+    padding: 10px 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+}
+
+.score-table {padding: 10px;}
+.score-table tr {padding: 5px;}
+.score-table td {padding: 10px; border: 1px solid black; cell-spacing: 0;}
+
 
 /**************************** buttons ***************************************/
 .button { 

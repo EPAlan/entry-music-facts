@@ -31,8 +31,25 @@ def sendHipChatNotificationForName(name):
 def index(request):
     kanjoyans = list(Kanjoyan.objects.all())
     context = {'user_list': kanjoyans}
-   
     return render(request, 'index.html', context)
+
+def scoreboard(request):
+    scores = list(Score.objects.all())
+    ranked = sorted(scores, key=lambda Score: Score.score, reverse=True)
+    rendered = render_to_string("scoreboard.html", {'scores' : ranked})
+    return HttpResponse(rendered)
+
+def visitor(request):
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/visitor.mp3'
+    try:
+        open(filename)
+    except IOError:
+        filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/default.mp3'
+    playSong(filename)
+    sendHipChatNotificationForName('Visitor')
+    rendered = render_to_string('visitor.html')
+    final = "<div class='everything'>" + rendered + "</div>";
+    return HttpResponse(final)
 
 def current_datetime(request):
     now = datetime.datetime.now()
