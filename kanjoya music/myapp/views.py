@@ -8,6 +8,8 @@ import myapp
 import random
 import datetime
 #import pyglet
+#import os
+#import AVbin
 
 def index(request):
     x = myapp.models.Kanjoyan(username = 'danni', id = 1 )
@@ -74,9 +76,9 @@ def showAnswer(request):
     
     if (success == '1'):
         processScore(user_id)
-	#song = pyglet.media.load('/static/songs/good-morning-short.mp3')
+	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
+	#song = pyglet.media.load(filename)
 	#song.play()
-
 	#pyglet.app.run()
 
     data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
