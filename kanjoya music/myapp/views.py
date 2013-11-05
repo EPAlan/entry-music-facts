@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+
 import datetime
 
 def current_datetime(request):
@@ -7,7 +9,8 @@ def current_datetime(request):
     return HttpResponse(html)
 
 def addFact(request):
-    return HttpResponse('addFact')
+    rendered = render_to_string('addFact.html', {'data': 'data'})
+    return HttpResponse(rendered)
 
 def showTrivia(request):
     return HttpResponse('showTrivia')
