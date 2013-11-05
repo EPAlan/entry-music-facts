@@ -23,13 +23,17 @@ def current_datetime(request):
     html = "<html><body>It is now %s.</body></html>" % now
     return HttpResponse(html)
 
-def addFact(request):
+def getUserId(request):
     crap = request.POST
     try:
         user_id = crap['user_id']
     except Exception:
         user_id = 1
         #TODO REDIRECT TO LOGIN
+    return user_id
+
+def addFact(request):
+    user_id = getUserId(request)
 
     danni = Kanjoyan.objects.get(id=user_id)
 
@@ -42,6 +46,8 @@ def addFact(request):
     return HttpResponse(final)
 
 def trivia(request):
+    user_id = getUserId(request)
+    currentUser = Kanjoyan.objects.get(id=user_id)
     final = 'shitTrivia'
     randomFact = getRandomFact()
     factText = randomFact.fact.text
@@ -53,7 +59,7 @@ def trivia(request):
 
     answer = randomFact.kanjoyan
 
-    data = {'answer' : answer, 'kanjoyans' : randomUsers, 'randomFact' : randomFact }
+    data = {'answer' : answer, 'kanjoyans' : randomUsers, 'randomFact' : randomFact, 'username' : currentUser.username }
     rendered = render_to_string('randomFact.html', {'data': data})
     
     return HttpResponse(rendered)
