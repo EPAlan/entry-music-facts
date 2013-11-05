@@ -80,10 +80,10 @@ def trivia(request, user_id):
     randomFact = getRandomFact()
     factText = randomFact.fact.text
 
-    randomUsers = getRandomUsers(5)
-    randomUsers.append(randomFact.kanjoyan)
-    random.shuffle(randomUsers)
-    randomUsers = list(set(randomUsers))
+    randomUsers = getRandomUsers(6)
+    randomUsers.insert(1, randomFact.kanjoyan)
+    randomUsers = list(set(randomUsers))[:5]
+    randomUsers = random.shuffle(randomUsers)
 
     answer = randomFact.kanjoyan
 
@@ -128,6 +128,11 @@ def uploadFileView(request, random_key):
     rendered = render_to_string('uploadFile.html', {'currentUser' : currentUser})
     return HttpResponse(rendered)
 
+def uploadPictureView(request, random_key):
+    currentUser = Kanjoyan.objects.get(randomKey=random_key)
+    rendered = render_to_string('uploadPicture.html', {'currentUser' : currentUser})
+    return HttpResponse(rendered)
+
 def uploadFile(request, user_id):
     filename = request.FILES['myfile']
     currentUser = Kanjoyan.objects.get(id=user_id)
@@ -137,6 +142,20 @@ def uploadFile(request, user_id):
 def handle_uploaded_file(source, currentUser):
 
     filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
+    with open(filename, 'wb+') as destination:
+        for chunk in source.chunks():
+            destination.write(chunk)
+    return filename
+
+def uploadPicture(request, user_id):
+    filename = request.FILES['myfile']
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    filepath = handle_uploaded_picture(filename, currentUser)
+    return HttpResponse(filepath)    
+
+def handle_uploaded_picture(source, currentUser):
+
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/images/' + currentUser.username + '.jpg'
     with open(filename, 'wb+') as destination:
         for chunk in source.chunks():
             destination.write(chunk)

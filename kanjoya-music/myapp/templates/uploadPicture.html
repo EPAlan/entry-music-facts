@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>User Page</title>
+     <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+</head>
+<body>
+
+    <h1>Hey {{currentUser.username}}. Upload your profile picture</h1>
+    
+    <div>
+    <form method="post" enctype="multipart/form-data" action="/uploadPictureAction/{{currentUser.id}}" >
+        <input type="file" name="myfile" />
+        <input type="submit" name="submit" value="Upload" />
+    </form>
+        
+    
+    </div>
+    
+</body>
+</html>
