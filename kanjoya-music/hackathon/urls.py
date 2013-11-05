@@ -15,13 +15,13 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^me/(\d)', myapp.views.addFact),
+    url(r'^me/(\S*)', myapp.views.addFact),
     url(r'^welcome/(\d)', myapp.views.trivia),
     url(r'^ajax/addFact', myapp.views.ajaxAddFact),
     url(r'^showAnswer', myapp.views.showAnswer),
     url(r'^visitor', myapp.views.visitor),
     url(r'^scoreboard', myapp.views.scoreboard),
-    url(r'^uploadFile/(\d)', myapp.views.uploadFileView),
+    url(r'^uploadFile/(\S*)', myapp.views.uploadFileView),
     url(r'^uploadAction/(\d)', myapp.views.uploadFile),
     (r'^$', myapp.views.index)
 

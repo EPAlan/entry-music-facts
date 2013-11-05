@@ -65,12 +65,10 @@ def getUserId(request):
         #TODO REDIRECT TO LOGIN
     return user_id
 
-def addFact(request, user_id):
-
-    currentUser = Kanjoyan.objects.get(id=user_id)
-
+def addFact(request, random_key):
+    currentUser = Kanjoyan.objects.get(randomKey=random_key)
     userFacts = UserFact.objects.filter(kanjoyan=currentUser)
-    
+    user_id = currentUser.id
     
     data = {'myFacts' : userFacts, 'username' : currentUser.username, 'userId' : user_id }
     rendered = render_to_string('addFact.html', {'data': data})
@@ -125,8 +123,8 @@ def playSong(filename):
     Popen(cmd, shell=True)
 
 
-def uploadFileView(request, user_id):
-    currentUser = Kanjoyan.objects.get(id=user_id)
+def uploadFileView(request, random_key):
+    currentUser = Kanjoyan.objects.get(randomKey=random_key)
     rendered = render_to_string('uploadFile.html', {'currentUser' : currentUser})
     return HttpResponse(rendered)
 
