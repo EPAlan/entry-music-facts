@@ -1,6 +1,8 @@
-from myapp.models import UserFacts
-from myapp.models import Facts
+from myapp.models import UserFact
+from myapp.models import Fact
+from myapp.models import Kanjoyan
 from django.contrib import admin
 
-admin.site.register(Facts)
-admin.site.register(UserFacts)
+admin.site.register(Fact)
+admin.site.register(UserFact)
+admin.site.register(Kanjoyan)
