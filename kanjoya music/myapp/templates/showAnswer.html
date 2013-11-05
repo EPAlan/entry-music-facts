@@ -9,15 +9,15 @@
     <h1>Hey {{data.currentUser.username}} </h1>
     
     <div>
-
-    {% if data.success == 1 %}
+    {% if data.success == '1' %}
         <h2> Good Job {{data.currentUser.username}}!</h2>
     {% else %}
         <h2> Nice Try {{data.currentUser.username}}</h2>
     {% endif %}
         
     <div class="answer">
-        <h3> {{data.fact.kanjoyan.username}} is the person who {{data.fact.fact.text}}  <h3>
+	<h3>{{data.fact.fact.text}}</h3>
+        <h3> {{data.fact.kanjoyan.username}} was the correct person<h3>
         <img src="/{{ data.fact.kanjoyan.image }}" width="250" height="250" />
     </div>
 

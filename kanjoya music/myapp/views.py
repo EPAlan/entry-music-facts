@@ -71,17 +71,12 @@ def showAnswer(request):
     success = crap['success']
 
     
-    if (success == 1):
-        shit = 'asdf'
-        #TODO INCREMENT POINTS ON SUCCESS    
+    if (success == '1'):
+        processScore(user_id)
 
     data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
     rendered = render_to_string('showAnswer.html', {'data': data})
     return HttpResponse(rendered)
-
-
-
-
 
 def getRandomFact():
     allFacts = list(UserFact.objects.all())
