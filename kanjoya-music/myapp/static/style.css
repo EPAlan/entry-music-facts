@@ -1,20 +1,21 @@
+
+/***************** General Rules ******************************************/
 body { font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif; background-color: #DFE7E8; }
 h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .main { margin: 0 auto; max-width: 900px; text-align: center; }
 .main h2 { font-size: 26px; }
 .main .title { font-size: 20px; }
 .main .fact { font-weight: 600; color: #444; font-size: 20px; margin-bottom: 15px; }
+.clear { clear: both; }
+/************************* Kajoyan Photo stuff ******************************************/
 .kanjoyan-list { float: left; max-width: 900px; margin-top: 20px; }
 .kanjoyan-list.show { display: block; }
 .kanjoyan-list.hide {  display: none; }
 .kanjoyan-list ul { padding: 0px; }
 .kanjoyan-list ul li { float: left; padding-right: 20px; list-style: none; }
 .kanjoyan-list img, .single-kanjoyan img { display: block; margin-bottom: 12px; width: 200px; height: 200px; }
-.single-kanjoyan img:after { content: ">>>"; } 
-.kanjoyan-list a:after { content: attr(title); }
-.kanjoyan-list a { 
-    -webkit-transform: rotate(-2deg); -moz-transform: rotate(-2deg); 
-    -webkit-transition: -webkit-transform .15s linear;
+.kanjoyan-list a:after, .single-kanjoyan a:after { content: attr(title); }
+.kanjoyan-list a, .single-kanjoyan a {
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
     background: none repeat scroll 0 0 #FFFFFF;
@@ -29,27 +30,15 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
     text-decoration: none;
     width: auto;
 }
+.kanjoyan-list a { -webkit-transform: rotate(-2deg); -moz-transform: rotate(-2deg); -webkit-transition: -webkit-transform .15s linear; }
 .kanjoyan-list ul li:nth-child(even) a { -webkit-transform: rotate(2deg); -moz-transform: rotate(2deg); }
 .kanjoyan-list ul li:nth-child(2n) a { -webkit-transform: none; -moz-transform: none; position: relative; top: -5px; }
 .kanjoyan-list ul li:nth-child(5n) a { -webkit-transform: rotate(5deg); -moz-transform: rotate(5deg); position: relative; right: 5px; }
 .kanjoyan-list ul li:nth-child(8n) a { position: relative; top: 8px; right: 5px; }
 .kanjoyan-list ul li:nth-child(11n) a { position: relative; top: 3px; left: -5px; }
-.single-kanjoyan img { 
-    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-    background: none repeat scroll 0 0 #FFFFFF;
-    color: #333333;
-    display: inline;
-    font-family: "Marker Felt",sans-serif;
-    font-size: 18px;
-    margin: 0 0 27px 30px;
-    padding: 10px 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    width: auto;
-}
+.single-kanjoyan { width: 300px; margin: 0 auto; padding-top: 15px; }
 
-
+/**************************** buttons ***************************************/
 
 .button { 
     background: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.45) 0px, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.03) 100%) repeat scroll 0 0 #EDECE7; 
