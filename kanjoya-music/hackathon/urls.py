@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^me/', myapp.views.addFact),
+    url(r'^me/(\d)', myapp.views.addFact),
     url(r'^welcome/(\d)', myapp.views.trivia),
     url(r'^ajax/addFact', myapp.views.ajaxAddFact),
     url(r'^showAnswer', myapp.views.showAnswer),

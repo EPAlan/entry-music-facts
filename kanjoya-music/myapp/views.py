@@ -9,7 +9,7 @@ import random
 import datetime
 from subprocess import Popen
 #import pyglet
-#import os
+import os
 #import AVbin
 
 def index(request):
@@ -37,15 +37,14 @@ def getUserId(request):
         #TODO REDIRECT TO LOGIN
     return user_id
 
-def addFact(request):
-    user_id = getUserId(request)
+def addFact(request, user_id):
 
-    danni = Kanjoyan.objects.get(id=user_id)
+    currentUser = Kanjoyan.objects.get(id=user_id)
 
-    danniFacts = UserFact.objects.filter(kanjoyan=danni)   
+    userFacts = UserFact.objects.filter(kanjoyan=currentUser)
     
     
-    data = {'myFacts' : danniFacts, 'username' : danni.username, 'userId' : user_id }
+    data = {'myFacts' : userFacts, 'username' : currentUser.username, 'userId' : user_id }
     rendered = render_to_string('addFact.html', {'data': data})
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
@@ -77,8 +76,11 @@ def showAnswer(request):
     
     if (success == '1'):
         processScore(user_id)
-        Popen("afplay /Users/alan/python-website/kanjoya\ music/myapp/static/songs/good-morning-short.mp3", shell=True)
-    	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
+	filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
+	cmd = 'afplay -t 10 ' + filename
+	Popen(cmd, shell=True)
+
+	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
     	#song = pyglet.media.load(filename)
     	#song.play()
     	#pyglet.app.run()
@@ -113,7 +115,7 @@ def ajaxAddFact(request):
         newUserFact = UserFact(fact=newFact, kanjoyan=currentUser)
         newUserFact.save()
 
-    final = "<div class='singleFact'>" + newUserFact.__unicode__() + "</div>";
+    final = "<div class='singleFact'>" + newUserFact.fact.text + "</div>";
     return HttpResponse(final)
 
 def showTrivia(request):
