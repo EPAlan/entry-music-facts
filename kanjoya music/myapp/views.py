@@ -121,10 +121,13 @@ def showTrivia(request):
 
 def processScore(userId):
     currentUser = Kanjoyan.objects.get(id=userId)
-
-    userScore = Score.objects.get(kanjoyan=currentUser)
-    userScore.score += 1
-    userScore.save()
+    try:
+        userScore = Score.objects.get(kanjoyan=currentUser)
+        userScore.score += 1
+        userScore.save()
+    except Exception:
+        userScore = Score(kanjoyan=currentUser, score=1)
+        userScore.save()
     return userScore.score
 
 def getUserScore(userId):
