@@ -12,7 +12,13 @@ def current_datetime(request):
     return HttpResponse(html)
 
 def addFact(request):
-    user_id = 1;
+    crap = request.POST
+    try:
+        user_id = crap['user_id']
+    except Exception:
+        user_id = 1
+        #TODO REDIRECT TO LOGIN
+
     danni = Kanjoyan.objects.get(id=user_id)
 
     danniFacts = UserFact.objects.filter(kanjoyan=danni)   
@@ -20,7 +26,7 @@ def addFact(request):
     
     data = {'myFacts' : danniFacts, 'username' : danni, 'userId' : user_id }
     rendered = render_to_string('addFact.html', {'data': data})
-    final = "<div>" + rendered + "</div>";
+    final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
 
 def ajaxAddFact(request):
@@ -39,7 +45,8 @@ def ajaxAddFact(request):
         newUserFact = UserFact(fact=newFact, kanjoyan=currentUser)
         newUserFact.save()
 
-    return HttpResponse(newUserFact)
+    final = "<div class='singleFact'>" + newUserFact.__unicode__() + "</div>";
+    return HttpResponse(final)
 
 def showTrivia(request):
     return HttpResponse('showTrivia')
