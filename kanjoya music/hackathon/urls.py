@@ -16,8 +16,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^me/', myapp.views.addFact),
-    url(r'^trivia/', myapp.views.trivia),
+    url(r'^welcome/(\d)', myapp.views.trivia),
     url(r'^ajax/addFact', myapp.views.ajaxAddFact),
+    url(r'^showAnswer', myapp.views.showAnswer),
     (r'^$', myapp.views.index)
 
 

@@ -5,34 +5,41 @@
      <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
 </head>
 <body>
-    <h1>Hey {{data.username}} </h1>
+    <h1>Hey {{data.currentUser.username}} </h1>
     
     <div><h2> {{data.randomFact.fact.text}}</h2>
-        
-            
+      
+    <form id='postAnswer' method='post' action='/showAnswer' class='hidden'>
+    </form>
+
+     <div class="kanjoyan-list">
+     <ul>
     {% for user in data.kanjoyans %}
-        <div class='singleUser'>
-            {{ user.username }}
-        </div>
+        {% if data.randomFact.kanjoyan == user %}
+             <li><a href="#" onclick="rightAnswer({{data.currentUser.id}}, {{data.randomFact.id}})" ><img src="/{{ user.image }}" width="250" height="250" /></a></li>
+        {% else %}
+             <li><a href="#" onclick="wrongAnswer({{data.currentUser.id}}, {{data.randomFact.id}})"><img src="/{{ user.image }}" width="250" height="250" /> X </a></li>
+        {% endif %}
     {% endfor %}        
-            
+         </ul></div>   
         
         <script type="text/javascript">
-            Event.observe('new-fact-form', 'submit', function(event) {
-                Event.stop(event);
-                var parameter = $('new-fact-form').serialize();
-                new Ajax.Request('/ajax/addFact', { method:'post', parameters: parameter,
-                    onSuccess: function(transport){
-                        $('new-fact-insert').insert({
-                            after: transport.responseText
-                        })
-                    }
+            function wrongAnswer(userId, randomFactId){
+                var form = $('postAnswer');
+                form.insert("<input type='hidden' name='user_id' value='"+userId+"'>");
+                form.insert("<input type='hidden' name='fact_id' value='"+randomFactId+"'>");
+                form.insert("<input type='hidden' name='success' value='0'>");
+                form.submit();
+            }
 
-                 });
+            function rightAnswer(userId, randomFactId){
+                var form = $('postAnswer');
+                form.insert("<input type='hidden' name='user_id' value='"+userId+"'>");
+                form.insert("<input type='hidden' name='fact_id' value='"+randomFactId+"'>");
+                form.insert("<input type='hidden' name='success' value='1'>");
+                form.submit();
+            }
 
-                console.log(parameter);
-              
-            });
         </script>
     </div>
     

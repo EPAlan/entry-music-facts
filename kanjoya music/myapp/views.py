@@ -46,10 +46,8 @@ def addFact(request):
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
 
-def trivia(request):
-    user_id = getUserId(request)
+def trivia(request, user_id):
     currentUser = Kanjoyan.objects.get(id=user_id)
-    final = 'shitTrivia'
     randomFact = getRandomFact()
     factText = randomFact.fact.text
 
@@ -60,10 +58,30 @@ def trivia(request):
 
     answer = randomFact.kanjoyan
 
-    data = {'answer' : answer, 'kanjoyans' : randomUsers, 'randomFact' : randomFact, 'username' : currentUser.username }
+    data = {'answer' : answer, 'kanjoyans' : randomUsers, 'randomFact' : randomFact, 'currentUser' : currentUser }
     rendered = render_to_string('randomFact.html', {'data': data})
-    
     return HttpResponse(rendered)
+
+def showAnswer(request):
+    user_id = getUserId(request)
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    crap = request.POST
+    factId = crap['fact_id']
+    fact = UserFact.objects.get(id=factId)
+    success = crap['success']
+
+    
+    if (success == 1):
+        shit = 'asdf'
+        #TODO INCREMENT POINTS ON SUCCESS    
+
+    data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
+    rendered = render_to_string('showAnswer.html', {'data': data})
+    return HttpResponse(rendered)
+
+
+
+
 
 def getRandomFact():
     allFacts = list(UserFact.objects.all())
