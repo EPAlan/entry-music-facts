@@ -7,6 +7,7 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .main .title { font-size: 20px; }
 .main .fact { font-weight: 600; color: #444; font-size: 20px; margin-bottom: 15px; }
 .clear { clear: both; }
+
 /************************* Kajoyan Photo stuff ******************************************/
 .kanjoyan-list { float: left; max-width: 900px; margin-top: 20px; }
 .kanjoyan-list.show { display: block; }
@@ -39,7 +40,6 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .single-kanjoyan { width: 300px; margin: 0 auto; padding-top: 15px; }
 
 /**************************** buttons ***************************************/
-
 .button { 
     background: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.45) 0px, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.03) 100%) repeat scroll 0 0 #EDECE7; 
     background-color: #9FD487;
@@ -71,7 +71,5 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
     -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
     -moz-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
     box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-
-
-
 }
+.button:hover { background-color: #93ce78; }
