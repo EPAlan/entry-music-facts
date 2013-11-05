@@ -73,12 +73,14 @@ def showAnswer(request):
     fact = UserFact.objects.get(id=factId)
     success = crap['success']
 
-    
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
     if (success == '1'):
         processScore(user_id)
-	filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
-	cmd = 'afplay -t 10 ' + filename
-	Popen(cmd, shell=True)
+    try:
+        open(filename)
+    except IOError:
+        filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/default.mp3'
+    playSong(filename)
 
 	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
     	#song = pyglet.media.load(filename)
@@ -88,6 +90,10 @@ def showAnswer(request):
     data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
     rendered = render_to_string('showAnswer.html', {'data': data})
     return HttpResponse(rendered)
+
+def playSong(filename):
+    cmd = 'afplay -t 10 ' + filename
+    Popen(cmd, shell=True)
 
 def getRandomFact():
     allFacts = list(UserFact.objects.all())
