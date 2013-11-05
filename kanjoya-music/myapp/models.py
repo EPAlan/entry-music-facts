@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
 # Create your models here.
 
 class Fact(models.Model):
@@ -13,7 +14,14 @@ class Kanjoyan(models.Model):
     username = models.CharField(max_length=50)
 
     def image(self):
-        return 'static/images/' + self.username + '.jpg'
+        filename = os.path.dirname(os.path.realpath(__file__)) + '/static/images/' + self.username + '.jpg'
+        try:
+            f = open(filename)
+            f.close()
+            return 'static/images/' + self.username + '.jpg'
+        except IOError:
+            filename = 'static/images/default.jpg'
+        return filename
 
     def __unicode__(self):
         return str(self.id) + ' : ' + self.username
