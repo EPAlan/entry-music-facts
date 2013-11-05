@@ -23,3 +23,11 @@ class UserFact(models.Model):
     fact = models.ForeignKey(Fact)
     def __unicode__(self):
         return self.kanjoyan.username + ' : ' + self.fact.text
+
+class Score(models.Model):
+    kanjoyan = models.ForeignKey(Kanjoyan)
+    score = models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.kanjoyan.username + ' : ' + str(self.score)
+
+

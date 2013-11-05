@@ -14,8 +14,9 @@ def index(request):
     user_list = []
     user_list.append(x)
     user_list.append(y)
-    context = {'user_list': user_list}
 
+    context = {'user_list': user_list}
+   
     return render(request, 'index.html', context)
 
 def current_datetime(request):
@@ -96,4 +97,18 @@ def ajaxAddFact(request):
 def showTrivia(request):
     return HttpResponse('showTrivia')
 
-# Create your views here.
+def processScore(userId):
+    currentUser = Kanjoyan.objects.get(id=userId)
+
+    userScore = Score.objects.get(kanjoyan=currentUser)
+    userScore.score += 1
+    userScore.save()
+    return userScore.score
+
+def getUserScore(userId):
+    currentUser = Kanjoyan.objects.get(id=userId)
+    userScore = Score.objects.get(kanjoyan=currentUser)
+    return userScore.score
+
+    
+ #Create your views here.
