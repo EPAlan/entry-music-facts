@@ -10,9 +10,23 @@ import datetime
 from subprocess import Popen
 import tempfile
 import shutil
+from hipchat import HipChat
+import time
 #import pyglet
 import os
 #import AVbin
+
+# hipchat config
+ROOM_ID = 90507
+HIPCHAT_API_TOKEN = 'a864d83d6221ad09861b690109a9f7'
+hipster = HipChat(token=HIPCHAT_API_TOKEN)
+
+def sendHipChatNotificationForName(name):
+    if time.localtime().tm_hour >= 16:
+        message = '(%s) has left the house.' % (name)
+    else:
+        message = '(%s) has entered the house.' % (name)
+    hipster.method('rooms/message', method='POST', parameters={'room_id': ROOM_ID, 'from': 'The Announcer', 'message': message})
 
 def index(request):
     kanjoyans = list(Kanjoyan.objects.all())
@@ -78,6 +92,7 @@ def showAnswer(request):
     except IOError:
         filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/default.mp3'
     playSong(filename)
+    sendHipChatNotificationForName(currentUser.username)
 
 	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
     	#song = pyglet.media.load(filename)
