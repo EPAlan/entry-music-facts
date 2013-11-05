@@ -21,7 +21,7 @@
         {% if user_list %}
             <ul>
             {% for user in user_list %}
-                <li><a href="/welcome/{{ user.id }}/" title="{{ user.username }}"><img src="{{ user.image }}" width="250" height="250" alt="{{ user.username }}" /></a></li>
+                <li><a href="/welcome/{{ user.id }}/" title="{{ user.username }}"><img src="{{ user.image }}" alt="{{ user.username }}" /></a></li>
             {% endfor %}
             </ul>
         {% else %}

@@ -15,13 +15,8 @@ import os
 #import AVbin
 
 def index(request):
-    x = myapp.models.Kanjoyan(username = 'danni', id = 1 )
-    y = myapp.models.Kanjoyan(username = 'alan', id = 2 )
-    user_list = []
-    user_list.append(x)
-    user_list.append(y)
-
-    context = {'user_list': user_list}
+    kanjoyans = list(Kanjoyan.objects.all())
+    context = {'user_list': kanjoyans}
    
     return render(request, 'index.html', context)
 
