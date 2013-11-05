@@ -1,13 +1,17 @@
+{% load staticfiles %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
     <title>User Page</title>
-     <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <link href="{% static 'images/favicon.ico' %}" type="image/x-icon" rel="shortcut icon">
+
 </head>
 <body>
     <h1>Hey {{data.username}} </h1>
     
-    <div><h2>Add Fact</h2>
+    <div><h2>Add New Fact</h2>
         <form id='new-fact-form' method="post" action="/ajax/addFact">
             <input type="text" maxlength="50" name="new_fact">
             <input type="hidden" value={{data.userId}} name="user_id">
