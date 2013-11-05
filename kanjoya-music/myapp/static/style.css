@@ -8,6 +8,10 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .main .fact { font-weight: 600; color: #444; font-size: 20px; margin-bottom: 15px; }
 .clear { clear: both; }
 
+/************************* Navigation stuff ******************************************/
+.navigation {     background-color: #808080; height: 45px; width: 555px; }
+.navigation a { color: #EEEEEE; padding: 10px; position: relative; text-decoration: none; top: 10px; }
+
 /************************* Kajoyan Photo stuff ******************************************/
 .kanjoyan-list { max-width: 900px; margin-top: 20px; }
 .kanjoyan-list.show { display: block; }
