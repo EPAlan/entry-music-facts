@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 </head>
 <body>
-    <h1>Hey {{data.currentUser.username}} </h1>
-    
-    <div><h2> {{data.randomFact.fact.text}}</h2>
+    <div class="main">
+	<h1>Hey {{ data.currentUser.username }} </h1>
+	<div class="title">Pick the Kanjoyan who said this:</div>
+	<div class="fact">&ldquo;{{ data.randomFact.fact.text }}&rdquo;</div>
       
     <form id='postAnswer' method='post' action='/showAnswer' class='hidden'>
     </form>
@@ -18,12 +19,13 @@
      <ul>
     {% for user in data.kanjoyans %}
         {% if data.randomFact.kanjoyan == user %}
-             <li><a href="#" onclick="rightAnswer({{data.currentUser.id}}, {{data.randomFact.id}})" ><img src="/{{ user.image }}" width="250" height="250" /></a></li>
+             <li><a href="#" onclick="rightAnswer({{data.currentUser.id}}, {{data.randomFact.id}})" title="{{ user.username }}"><img src="/{{ user.image }}" alt="{{ user.username }}" /></a></li>
         {% else %}
-             <li><a href="#" onclick="wrongAnswer({{data.currentUser.id}}, {{data.randomFact.id}})"><img src="/{{ user.image }}" width="250" height="250" /> X </a></li>
+             <li><a href="#" onclick="wrongAnswer({{data.currentUser.id}}, {{data.randomFact.id}})" title="{{ user.username }}"><img src="/{{ user.image }}" alt="{{ user.username }}"/></a></li>
         {% endif %}
     {% endfor %}        
-         </ul></div>   
+         </ul>
+    </div>   
         
         <script type="text/javascript">
             function wrongAnswer(userId, randomFactId){

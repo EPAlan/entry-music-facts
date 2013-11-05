@@ -1,24 +1,27 @@
+{% load staticfiles %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <title>User Page</title>
-     <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <title>Welcome to Kanjoya</title>
+    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 </head>
 <body>
-
+<div class="main">
     <h1>Hey {{data.currentUser.username}} </h1>
     
-    <div>
     {% if data.success == '1' %}
-        <h2> Good Job {{data.currentUser.username}}!</h2>
+        <h2> Good Job!</h2>
     {% else %}
-        <h2> Nice Try {{data.currentUser.username}}</h2>
+        <h2> Bad Luck</h2>
     {% endif %}
         
     <div class="answer">
-	<h3>{{data.fact.fact.text}}</h3>
-        <h3> {{data.fact.kanjoyan.username}} was the correct person<h3>
-        <img src="/{{ data.fact.kanjoyan.image }}" width="250" height="250" />
+	<div class="fact">&ldquo;{{ data.fact.fact.text }}&rdquo;</div>
+        <div class="title">was said by:</div>
+        <div class="single-kanjoyan">
+	    <img src="/{{ data.fact.kanjoyan.image }}" alt="{{ data.fact.kanjoyan.username }}" />
+	</div>
     </div>
 
     <div id="redirect">
@@ -27,22 +30,22 @@
 
 
 
-        <script type="text/javascript">
-            var count = 10;
-            var redirect="/";  
-            var element = $('redirect');
-            function countDown() {  
-                if (count <=0) {  
-                    window.location = redirect;  
-                } else {  
-                    count--;  
-                    element.update("This page will redirect in "+count+" seconds.");
-                }  
-                setTimeout("countDown()", 1000)  
+    <script type="text/javascript">
+        var count = 10;
+        var redirect="/";  
+        var element = $('redirect');
+        function countDown() {  
+            if (count <=0) {  
+                window.location = redirect;  
+            } else {  
+                count--;  
+                element.update("This page will redirect in "+count+" seconds.");
             }  
-            countDown();
-        </script>
-    </div>
+            setTimeout("countDown()", 1000)  
+        }  
+        //countDown();
+    </script>
+</div>
     
 </body>
 </html>
