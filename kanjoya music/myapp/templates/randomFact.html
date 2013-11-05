@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>User Page</title>
+     <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+</head>
+<body>
+    <h1>Hey {{data.username}} </h1>
+    
+    <div><h2> {{data.randomFact.fact.text}}</h2>
+        
+            
+    {% for user in data.kanjoyans %}
+        <div class='singleUser'>
+            {{ user.username }}
+        </div>
+    {% endfor %}        
+            
+        
+        <script type="text/javascript">
+            Event.observe('new-fact-form', 'submit', function(event) {
+                Event.stop(event);
+                var parameter = $('new-fact-form').serialize();
+                new Ajax.Request('/ajax/addFact', { method:'post', parameters: parameter,
+                    onSuccess: function(transport){
+                        $('new-fact-insert').insert({
+                            after: transport.responseText
+                        })
+                    }
+
+                 });
+
+                console.log(parameter);
+              
+            });
+        </script>
+    </div>
+    
+    
+
+    <div id='new-fact-insert'>
+    </div>
+
+    
+    
+</body>
+</html>
