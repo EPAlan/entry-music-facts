@@ -11,6 +11,10 @@ class Kanjoyan(models.Model):
     firstname = models.CharField(max_length=50)
     lastname= models.CharField(max_length=50)
     username = models.CharField(max_length=50)
+
+    def image(self):
+        return 'static/images/' + self.username + '.jpg'
+
     def __unicode__(self):
         return str(self.id) + ' : ' + self.username
 

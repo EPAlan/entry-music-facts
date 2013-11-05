@@ -1,11 +1,22 @@
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.shortcuts import render
+
 from myapp import models
 from myapp.models import *
 import myapp
 import random
-
 import datetime
+
+def index(request):
+    x = myapp.models.Kanjoyan(username = 'danni', id = 1 )
+    y = myapp.models.Kanjoyan(username = 'alan', id = 2 )
+    user_list = []
+    user_list.append(x)
+    user_list.append(y)
+    context = {'user_list': user_list}
+
+    return render(request, 'index.html', context)
 
 def current_datetime(request):
     now = datetime.datetime.now()
