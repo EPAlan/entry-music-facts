@@ -81,9 +81,13 @@ def trivia(request, user_id):
     factText = randomFact.fact.text
 
     randomUsers = getRandomUsers(6)
-    randomUsers.insert(1, randomFact.kanjoyan)
-    randomUsers = list(set(randomUsers))[:5]
-    randomUsers = random.shuffle(randomUsers)
+    randomUsers.append(randomFact.kanjoyan)
+    random.shuffle(randomUsers)
+    randomUsers = list(set(randomUsers))
+
+    #randomUsers.insert(1, randomFact.kanjoyan)
+    #randomUsers = list(set(randomUsers))[:5]
+    #randomUsers = random.shuffle(randomUsers)
 
     answer = randomFact.kanjoyan
 
