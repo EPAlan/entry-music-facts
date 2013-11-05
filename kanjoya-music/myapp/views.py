@@ -125,12 +125,14 @@ def playSong(filename):
 
 def uploadFileView(request, random_key):
     currentUser = Kanjoyan.objects.get(randomKey=random_key)
-    rendered = render_to_string('uploadFile.html', {'currentUser' : currentUser})
+    rendered = render_to_string('navigation.html', { "randomKey" : random_key })
+    rendered += render_to_string('uploadFile.html', {'currentUser' : currentUser})
     return HttpResponse(rendered)
 
 def uploadPictureView(request, random_key):
     currentUser = Kanjoyan.objects.get(randomKey=random_key)
-    rendered = render_to_string('uploadPicture.html', {'currentUser' : currentUser})
+    rendered = render_to_string('navigation.html', { "randomKey" : random_key })
+    rendered += render_to_string('uploadPicture.html', {'currentUser' : currentUser})
     return HttpResponse(rendered)
 
 def uploadFile(request, user_id):
