@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from myapp import models
 from myapp.models import *
 import myapp
+import random
 
 import datetime
 
@@ -28,6 +29,33 @@ def addFact(request):
     rendered = render_to_string('addFact.html', {'data': data})
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
+
+def trivia(request):
+    final = 'shitTrivia'
+    randomFact = getRandomFact()
+    factText = randomFact.fact.text
+
+    randomUsers = getRandomUsers(5)
+    randomUsers.append(randomFact.kanjoyan)
+    random.shuffle(randomUsers)
+    randomUsers = list(set(randomUsers))
+
+    answer = randomFact.kanjoyan
+
+    data = {'answer' : answer, 'kanjoyans' : randomUsers, 'randomFact' : randomFact }
+    rendered = render_to_string('randomFact.html', {'data': data})
+    
+    return HttpResponse(rendered)
+
+def getRandomFact():
+    allFacts = list(UserFact.objects.all())
+    random.shuffle(allFacts)
+    return allFacts[0]
+
+def getRandomUsers(limit):
+    allKanjoyans = list(Kanjoyan.objects.all())
+    random.shuffle(allKanjoyans)
+    return allKanjoyans[:limit]
 
 def ajaxAddFact(request):
     crap = request.POST
