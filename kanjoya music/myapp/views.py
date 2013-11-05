@@ -7,7 +7,7 @@ from myapp.models import *
 import myapp
 import random
 import datetime
-#import pyglet
+from subprocess import Popen
 
 def index(request):
     x = myapp.models.Kanjoyan(username = 'danni', id = 1 )
@@ -74,10 +74,7 @@ def showAnswer(request):
     
     if (success == '1'):
         processScore(user_id)
-	#song = pyglet.media.load('/static/songs/good-morning-short.mp3')
-	#song.play()
-
-	#pyglet.app.run()
+        Popen("afplay /Users/alan/python-website/kanjoya\ music/myapp/static/songs/good-morning-short.mp3", shell=True)
 
     data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
     rendered = render_to_string('showAnswer.html', {'data': data})
