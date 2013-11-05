@@ -34,7 +34,7 @@
     
     {% for singleFact in data.myFacts %}
         <div class='singleFact'>
-            {{ singleFact }}
+            {{ singleFact.fact.text }}
         </div>
     {% endfor %}
 

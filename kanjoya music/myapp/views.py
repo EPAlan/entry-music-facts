@@ -24,7 +24,7 @@ def addFact(request):
     danniFacts = UserFact.objects.filter(kanjoyan=danni)   
     
     
-    data = {'myFacts' : danniFacts, 'username' : danni, 'userId' : user_id }
+    data = {'myFacts' : danniFacts, 'username' : danni.username, 'userId' : user_id }
     rendered = render_to_string('addFact.html', {'data': data})
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
