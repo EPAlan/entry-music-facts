@@ -8,6 +8,8 @@ import myapp
 import random
 import datetime
 from subprocess import Popen
+import tempfile
+import shutil
 #import pyglet
 import os
 #import AVbin
@@ -73,12 +75,14 @@ def showAnswer(request):
     fact = UserFact.objects.get(id=factId)
     success = crap['success']
 
-    
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
     if (success == '1'):
         processScore(user_id)
-	filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
-	cmd = 'afplay -t 10 ' + filename
-	Popen(cmd, shell=True)
+    try:
+        open(filename)
+    except IOError:
+        filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/default.mp3'
+    playSong(filename)
 
 	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
     	#song = pyglet.media.load(filename)
@@ -88,6 +92,30 @@ def showAnswer(request):
     data = {'fact' : fact, 'success' : success, 'currentUser' : currentUser }
     rendered = render_to_string('showAnswer.html', {'data': data})
     return HttpResponse(rendered)
+
+def playSong(filename):
+    cmd = 'afplay -t 10 ' + filename
+    Popen(cmd, shell=True)
+
+
+def uploadFileView(request, user_id):
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    rendered = render_to_string('uploadFile.html', {'currentUser' : currentUser})
+    return HttpResponse(rendered)
+
+def uploadFile(request, user_id):
+    filename = request.FILES['myfile']
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    filepath = handle_uploaded_file(filename, currentUser)
+    return HttpResponse(filepath)    
+
+def handle_uploaded_file(source, currentUser):
+
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
+    with open(filename, 'wb+') as destination:
+        for chunk in source.chunks():
+            destination.write(chunk)
+    return filename
 
 def getRandomFact():
     allFacts = list(UserFact.objects.all())
@@ -117,9 +145,6 @@ def ajaxAddFact(request):
 
     final = "<div class='singleFact'>" + newUserFact.fact.text + "</div>";
     return HttpResponse(final)
-
-def showTrivia(request):
-    return HttpResponse('showTrivia')
 
 def processScore(userId):
     currentUser = Kanjoyan.objects.get(id=userId)
