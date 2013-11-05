@@ -12,6 +12,8 @@ class Kanjoyan(models.Model):
     firstname = models.CharField(max_length=50)
     lastname= models.CharField(max_length=50)
     username = models.CharField(max_length=50)
+    randomKey = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
 
     def image(self):
         filename = os.path.dirname(os.path.realpath(__file__)) + '/static/images/' + self.username + '.jpg'
