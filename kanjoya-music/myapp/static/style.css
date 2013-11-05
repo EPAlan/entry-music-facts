@@ -9,7 +9,7 @@ h1, h2, .title { font-weight: 400; color: #444; margin-bottom: 10px; }
 .clear { clear: both; }
 
 /************************* Kajoyan Photo stuff ******************************************/
-.kanjoyan-list { float: left; max-width: 900px; margin-top: 20px; }
+.kanjoyan-list { max-width: 900px; margin-top: 20px; }
 .kanjoyan-list.show { display: block; }
 .kanjoyan-list.hide {  display: none; }
 .kanjoyan-list ul { padding: 0px; }
