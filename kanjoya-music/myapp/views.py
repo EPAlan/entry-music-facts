@@ -8,6 +8,8 @@ import myapp
 import random
 import datetime
 from subprocess import Popen
+import tempfile
+import shutil
 #import pyglet
 import os
 #import AVbin
@@ -95,6 +97,26 @@ def playSong(filename):
     cmd = 'afplay -t 10 ' + filename
     Popen(cmd, shell=True)
 
+
+def uploadFileView(request, user_id):
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    rendered = render_to_string('uploadFile.html', {'currentUser' : currentUser})
+    return HttpResponse(rendered)
+
+def uploadFile(request, user_id):
+    filename = request.FILES['myfile']
+    currentUser = Kanjoyan.objects.get(id=user_id)
+    filepath = handle_uploaded_file(filename, currentUser)
+    return HttpResponse(filepath)    
+
+def handle_uploaded_file(source, currentUser):
+
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/' + currentUser.username + '.mp3'
+    with open(filename, 'wb+') as destination:
+        for chunk in source.chunks():
+            destination.write(chunk)
+    return filename
+
 def getRandomFact():
     allFacts = list(UserFact.objects.all())
     random.shuffle(allFacts)
@@ -123,9 +145,6 @@ def ajaxAddFact(request):
 
     final = "<div class='singleFact'>" + newUserFact.fact.text + "</div>";
     return HttpResponse(final)
-
-def showTrivia(request):
-    return HttpResponse('showTrivia')
 
 def processScore(userId):
     currentUser = Kanjoyan.objects.get(id=userId)

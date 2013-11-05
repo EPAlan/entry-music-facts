@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url(r'^welcome/(\d)', myapp.views.trivia),
     url(r'^ajax/addFact', myapp.views.ajaxAddFact),
     url(r'^showAnswer', myapp.views.showAnswer),
+    url(r'^uploadFile/(\d)', myapp.views.uploadFileView),
+    url(r'^uploadAction/(\d)', myapp.views.uploadFile),
     (r'^$', myapp.views.index)
 
 
