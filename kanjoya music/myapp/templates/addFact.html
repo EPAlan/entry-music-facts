@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>User Page</title>
+</head>
+<body>
+    <h1>Hey {{data.username}} </h1>
+    
+    {% for singleFact in data.myFacts %}
+    <div class='singleFact'>
+        {{ singleFact.text }}
+    </div>
+{% endfor %}
+
+
+
+    <hr>
+    <p>Thanks for visiting my site.</p>
+</body>
+</html>
