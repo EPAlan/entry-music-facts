@@ -2,19 +2,46 @@
 <html lang="en">
 <head>
     <title>User Page</title>
+     <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
 </head>
 <body>
     <h1>Hey {{data.username}} </h1>
     
-    {% for singleFact in data.myFacts %}
-    <div class='singleFact'>
-        {{ singleFact.text }}
+    <div><h2>Add Fact</h2>
+        <form id='new-fact-form' method="post" action="/ajax/addFact">
+            <input type="text" maxlength="50" name="new_fact">
+            <input type="hidden" value={{data.userId}} name="user_id">
+            <input type="submit" value="Add">
+        </form>
+        <script type="text/javascript">
+            Event.observe('new-fact-form', 'submit', function(event) {
+                Event.stop(event);
+                var parameter = $('new-fact-form').serialize();
+                new Ajax.Request('/ajax/addFact', { method:'post', parameters: parameter,
+                    onSuccess: function(transport){
+                        $('new-fact-insert').insert({
+                            after: transport.responseText
+                        })
+                    }
+
+                 });
+
+                console.log(parameter);
+              
+            });
+        </script>
     </div>
-{% endfor %}
+    
+    {% for singleFact in data.myFacts %}
+        <div class='singleFact'>
+            {{ singleFact.fact.text }}
+        </div>
+    {% endfor %}
 
+    <div id='new-fact-insert'>
+    </div>
 
-
-    <hr>
-    <p>Thanks for visiting my site.</p>
+    
+    
 </body>
 </html>
