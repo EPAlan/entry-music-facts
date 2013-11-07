@@ -111,7 +111,12 @@ def showAnswer(request):
         open(filename)
     except IOError:
         filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/default.mp3'
-    playSong(filename)
+    if currentUser.username == 'Danni':
+	limit = 15
+    else:
+        limit = 10
+
+    playSong(filename, limit)
     sendHipChatNotificationForName(currentUser.username)
 
 	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
@@ -123,8 +128,8 @@ def showAnswer(request):
     rendered = render_to_string('showAnswer.html', {'data': data})
     return HttpResponse(rendered)
 
-def playSong(filename):
-    cmd = 'afplay -t 10 ' + filename
+def playSong(filename, limit=10):
+    cmd = 'afplay -t ' + str(limit) + ' ' + filename
     Popen(cmd, shell=True)
 
 
