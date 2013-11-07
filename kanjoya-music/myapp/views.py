@@ -80,14 +80,15 @@ def trivia(request, user_id):
     randomFact = getRandomFact()
     factText = randomFact.fact.text
 
-    randomUsers = getRandomUsers(6)
+    #randomUsers = getRandomUsers(6)
+    #randomUsers.append(randomFact.kanjoyan)
+    #random.shuffle(randomUsers)
+    #randomUsers = list(set(randomUsers))
+
+    randomUsers = getRandomUsersExcluding(5, randomFact.kanjoyan.id)
     randomUsers.append(randomFact.kanjoyan)
     random.shuffle(randomUsers)
     randomUsers = list(set(randomUsers))
-
-    #randomUsers.insert(1, randomFact.kanjoyan)
-    #randomUsers = list(set(randomUsers))[:5]
-    #randomUsers = random.shuffle(randomUsers)
 
     answer = randomFact.kanjoyan
 
@@ -176,6 +177,11 @@ def getRandomUsers(limit):
     allKanjoyans = list(Kanjoyan.objects.all())
     random.shuffle(allKanjoyans)
     return allKanjoyans[:limit]
+
+def getRandomUsersExcluding(limit, factUserId):
+    theKanjoyans = list(Kanjoyan.objects.exclude(id=factUserId))
+    random.shuffle(theKanjoyans)
+    return theKanjoyans[:limit]
 
 def ajaxAddFact(request):
     crap = request.POST
