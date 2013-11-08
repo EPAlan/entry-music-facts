@@ -73,7 +73,7 @@ def addFact(request, random_key):
     userFacts = UserFact.objects.filter(kanjoyan=currentUser)
     user_id = currentUser.id
     
-    data = {'myFacts' : userFacts, 'username' : currentUser.username, 'userId' : user_id }
+    data = {'myFacts' : userFacts, 'username' : currentUser.username, 'userId' : user_id, 'randomKey' : random_key }
     rendered = render_to_string('addFact.html', {'data': data})
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
