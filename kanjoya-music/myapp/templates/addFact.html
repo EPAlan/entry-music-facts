@@ -13,7 +13,7 @@
     
     <div><h2>Add New Fact</h2>
         <form id='new-fact-form' method="post" action="/ajax/addFact">
-            <input type="text" maxlength="50" name="new_fact">
+            <input type="text" id = "new_fact" maxlength="200" name="new_fact">
             <input type="hidden" value={{data.userId}} name="user_id">
             <input type="submit" value="Add">
         </form>
@@ -25,12 +25,11 @@
                     onSuccess: function(transport){
                         $('new-fact-insert').insert({
                             after: transport.responseText
+                            $('new_fact').setValue('');
                         })
                     }
 
                  });
-
-                console.log(parameter);
               
             });
         </script>

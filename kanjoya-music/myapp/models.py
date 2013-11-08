@@ -4,7 +4,7 @@ import os
 # Create your models here.
 
 class Fact(models.Model):
-    text = models.CharField(max_length=70)
+    text = models.CharField(max_length=200)
     def __unicode__(self):
         return self.text
 

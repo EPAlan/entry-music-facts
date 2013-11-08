@@ -129,7 +129,7 @@ def showAnswer(request):
     return HttpResponse(rendered)
 
 def playSong(filename, limit=10):
-    cmd = 'afplay -t ' + str(limit) + ' ' + filename
+    cmd = 'mpg123 ' + str(limit) + ' ' + filename
     Popen(cmd, shell=True)
 
 
