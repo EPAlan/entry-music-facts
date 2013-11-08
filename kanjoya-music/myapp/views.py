@@ -117,7 +117,7 @@ def showAnswer(request):
         limit = 10
 
     playSong(filename, limit)
-    sendHipChatNotificationForName(currentUser.username)
+    sendHipChatNotificationForName(currentUser.username + filename)
 
 	#filename = os.path.dirname(os.path.realpath(__file__)) + '/static/songs/good-morning-short.mp3'
     	#song = pyglet.media.load(filename)
