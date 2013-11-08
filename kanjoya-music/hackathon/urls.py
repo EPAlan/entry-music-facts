@@ -23,8 +23,8 @@ urlpatterns = patterns('',
     url(r'^scoreboard', myapp.views.scoreboard),
     url(r'^uploadFile/(\S*)', myapp.views.uploadFileView),
     url(r'^uploadPicture/(\S*)', myapp.views.uploadPictureView),
-    url(r'^uploadAction/(\d)', myapp.views.uploadFile),
-    url(r'^uploadPictureAction/(\d)', myapp.views.uploadPicture),
+    url(r'^uploadAction/(\d*)', myapp.views.uploadFile),
+    url(r'^uploadPictureAction/(\d*)', myapp.views.uploadPicture),
     (r'^$', myapp.views.index)
 
 
