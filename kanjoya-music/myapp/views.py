@@ -30,7 +30,10 @@ def sendHipChatNotificationForName(name):
 
 def index(request):
     kanjoyans = list(Kanjoyan.objects.all())
-    context = {'user_list': kanjoyans}
+    scores = list(Score.objects.all())
+    ranked = sorted(scores, key=lambda Score: Score.score, reverse=True)
+    rendered = render_to_string("scoreboard.html", {'scores' : ranked})
+    context = {'user_list': kanjoyans, 'scoreHTML' : rendered}
     return render(request, 'index.html', context)
 
 def scoreboard(request):
