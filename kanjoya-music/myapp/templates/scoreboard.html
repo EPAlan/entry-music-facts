@@ -3,14 +3,13 @@
 <html lang="en">
 <head>
     <title>The Scoreboard</title>
-    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
     <link href="{% static 'images/favicon.ico' %}" type="image/x-icon" rel="shortcut icon">
 </head>
 <body>
-<div class="scoreboard">
+<div id="scoreboard">
 
-<h1>The Scoreboard </h1>
+<h1>Scoreboard</h1>
     
     <table cellspacing="0" cellpadding="0" class="score-table">    
     {% for score in scores %}
