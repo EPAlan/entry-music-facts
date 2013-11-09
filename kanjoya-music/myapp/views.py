@@ -14,6 +14,9 @@ from hipchat import HipChat
 import time
 #import pyglet
 import os
+import commands
+import smtplib
+from email.mime.text import MIMEText
 #import AVbin
 
 # hipchat config
@@ -77,6 +80,30 @@ def addFact(request, random_key):
     rendered = render_to_string('addFact.html', {'data': data})
     final = "<div class='everything'>" + rendered + "</div>";
     return HttpResponse(final)
+
+def email(request):
+    allKanjoyans = list(Kanjoyan.objects.all())
+    host = '10.222.143.35:8000/me/'
+    
+    SENDMAIL = "/usr/sbin/sendmail" # sendmail location
+  
+    
+    for kanjoyan in allKanjoyans:
+        p = os.popen("%s -t" % SENDMAIL, "w")
+        p.write("To: " + kanjoyan.email + "\n")
+        p.write("Subject: Link to add new facts\n")
+        p.write("\n") # blank line separating headers from body
+        p.write(host + kanjoyan.randomKey)
+        p.write("\n")
+        sts = p.close()
+        #if sts != 0:
+          #print "Sendmail exit status", sts
+    
+    return HttpResponse(host)
+
+    
+    
+
 
 def trivia(request, user_id):
     currentUser = Kanjoyan.objects.get(id=user_id)
