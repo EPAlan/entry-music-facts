@@ -41,3 +41,6 @@ class Score(models.Model):
         return self.kanjoyan.username + ' : ' + str(self.score)
 
 
+class LastScored(models.Model):
+    kanjoyan = models.ForeignKey(Kanjoyan)
+    lastChanged = models.DateField.auto_now

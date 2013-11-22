@@ -17,6 +17,7 @@ import os
 import commands
 import smtplib
 from email.mime.text import MIMEText
+import datetime
 #import AVbin
 
 # hipchat config
@@ -240,9 +241,19 @@ def ajaxAddFact(request):
 def processScore(userId):
     currentUser = Kanjoyan.objects.get(id=userId)
     try:
-        userScore = Score.objects.get(kanjoyan=currentUser)
-        userScore.score += 1
-        userScore.save()
+        try:
+            userLastScore = LastScored.objects.get(kanjoyan=currentUser)
+            today = datetime.datetime.now().date()
+        except Exception:
+            yesterday = datetime.date.fromordinal(datetime.date.today().toordinal()-1)
+            userLastScore = LastScored(kanjoyan=currentUser, lastChanged=yesterday)
+            userLastScore.save()
+        if (userLastScore.lastChanged != today):
+            userLastScore.lastChanged = today
+            userLastScore.save
+            userScore = Score.objects.get(kanjoyan=currentUser)
+            userScore.score += 1
+            userScore.save()
     except Exception:
         userScore = Score(kanjoyan=currentUser, score=1)
         userScore.save()
